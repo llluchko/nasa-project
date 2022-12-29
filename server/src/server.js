@@ -1,11 +1,17 @@
-const http = require('http')
+const http = require('http');
 
-const app = require('./app')
+const app = require('./app');
+
+const { loadPlanetsData } = require('./models/planets.model');
+
 const PORT = process.env.PORT || 8000;
 
-const server = http.createServer(app)
+const server = http.createServer(app);
 
+async function startServer() {
+  // set db , wait for services, etc..
+  await loadPlanetsData();
+  server.listen(PORT, () => {});
+}
 
-server.listen(PORT, () => {
-
-})
+startServer();
